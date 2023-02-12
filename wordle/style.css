@@ -2,3 +2,29 @@ body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
 }
+ul {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: solid rgb(235, 230, 230)
+}
+li:first-child {
+  margin-right: auto;
+  visibility: hidden;
+}
+li:last-child {
+  margin-left: auto;
+}
+button:hover {
+  background: rgb(183, 174, 174)
+}
+li {
+  display: flex;
+}
+button {
+  border: none;
+  background:none;
+  font-size: 30px;
+  padding: 20px;
+}
