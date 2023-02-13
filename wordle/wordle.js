@@ -9,9 +9,10 @@ let currentWord = "hell";
 let currentHint;
 let currentLetters = [];
 let randomIndex = 0;
-let guessLeft = 4;
+let guessesLeft = 4;
 let lettersFilled = 0;
 
+/*
 async function fetchDictionary() {
     startOverButton.disabled = true;
     startOverButton.innerHTML = "Loading..."
@@ -35,6 +36,7 @@ async function fetchDictionary() {
 }
 
 fetchDictionary();
+*/
 initializeBoard();
 
 startOverButton.addEventListener("click", function() {
@@ -56,21 +58,19 @@ hintButton.addEventListener("click", function() {
 function initializeBoard() {
     let board = document.getElementById("board");
     for (let i = 0; i < 4; i++) {
-        let row = document.createElement("div")
-        row.className = "letter-row"
-        
+        let row = document.createElement("div");
+        row.className = "letter-row";
         for (let j = 0; j < 4; j++) {
-            let tile = document.createElement("div")
-            tile.className = "letter-tile"
-            row.appendChild(tile)
+            let tile = document.createElement("input-type");
+            tile.className = "letter-tile";
+            row.appendChild(tile);
         }
         board.appendChild(row)
     }
 }
 
-update.addEventListener("keyup", (e) => {
+document.addEventListener("keyup", (e) => {
     let pressedKey = String(e.key)
-    
     switch (pressedKey) {
         case "Backspace":
             if (lettersFilled !== 0) {
@@ -87,14 +87,14 @@ update.addEventListener("keyup", (e) => {
 
 function deleteL() {
     let row = document.getElementsByClassName("letter-row")[4-guessesLeft];
-    let tile = row.children[nextLetter -1];
+    let tile = row.children[lettersFilled -1];
     tile.textContent = "";
-    tile.classList.remove("filled-box");
+    tile.classList.remove("filled-tile");
     currentLetters.pop();
     lettersFilled -= 1;
 }
 
-function insertL() {
+function insertL(pressedKey) {
     if (lettersFilled === 4) {
         return;
     }
@@ -102,7 +102,7 @@ function insertL() {
     let row = document.getElementsByClassName("letter-row")[4-guessesLeft];
     let tile = row.children[lettersFilled];
     tile.textContent = pressedKey;
-    tile.classList.add("filled-box");
+    tile.classList.add("filled-tile");
     currentLetters.push(pressedKey);
     lettersFilled += 1;
 }
@@ -114,18 +114,19 @@ function checkWord() {
     for (const i of currentLetters) {
         guess += i;
     }
-    if (guessString.length != 4) {
+    if (guess.length != 4) {
         window.alert("first complete the word");
+        return;
     }
     
-    for (let i = 0; i < 4; i++) {
+    for (let j = 0; j < 4; j++) {
         let colour = "";
-        let tile = row.children[i];
-        let letter = currentLetters[i];
+        let tile = row.children[j];
+        let letter = currentLetters[j];
         let position = 1;
-        for (let j = 0; j< currentWord.length; j++) {
-            if (currentWord[j] === currentLetters[j]) {
-                position = j;
+        for (let k = 0; k < currentWord.length; k++) {
+            if (currentWord[k] === currentLetters[k]) {
+                position = k;
                 break;
             }
         }
@@ -135,12 +136,13 @@ function checkWord() {
         }
         // Letter in word
         else {
-            if (currentLetters[i] === currentWord[i]) {
+            if (letter === currentWord[i]) {
                 colour = "green"
             }
             else {
                 colour = "yellow"
             }
+            currentWord[position] = "#";
         }
         // shade box
         tile.style.backgroundColor = colour;
