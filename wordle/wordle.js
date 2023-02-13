@@ -68,7 +68,7 @@ function initializeBoard() {
     }
 }
 
-update.addEventListener("keyup", (e) {
+update.addEventListener("keyup", (e) => {
     let pressedKey = String(e.key)
     
     switch (pressedKey) {
