@@ -3,10 +3,9 @@ const instrContainer = document.getElementById("instructions");
 const hintButton = document.getElementById("hint");
 const hintDisplay = document.getElementById("hint-display");
 const startOverButton = document.getElementById("start-over");
-const letterBoxes = document.querySelectorAll(".letter-box");
 
-let dictionary;
-let currentWord = "Hello";
+let dictionary = [];
+let currentWord = "hello";
 let currentHint;
 let currentLetters = [];
 let randomIndex = 0;
@@ -15,6 +14,7 @@ async function fetchDictionary() {
     startOverButton.disabled = true;
     startOverButton.innerHTML = "Loading..."
 
+    try {
     const res = await fetch("https://api.masoudkf.com/v1/wordle", {
         headers: {
             "x-api-key": "sw0Tr2othT1AyTQtNDUE06LqMckbTiKWaVYhuirv",
@@ -23,6 +23,9 @@ async function fetchDictionary() {
 
   const data = await res.json();
   dictionary = data.dictionary;
+} catch (error) {
+    console.error(error);
+}
   startOverButton.disabled = false;
   startOverButton.innerHTML = "Start Over";
   randomIndex = Number.parseInt(Math.random() * dictionary.length);
@@ -30,34 +33,29 @@ async function fetchDictionary() {
 }
 
 fetchDictionary();
+initializeBoard();
 
 startOverButton.addEventListener("click", function() {
     randomIndex = Number.parseInt(Math.random() * dictionary.length);
     currentWord = dictionary[randomIndex];
-    // Reset other aspects of game (letters and stuff)
+    // more resetting stuff
 });
 
 hintButton.addEventListener("click", function() {
-    hintDisplay.innerHTML = currentWord;
+    hintDisplay.innerHTML = currentWord.hint;
 });
 
-const wordTable = document.querySelector("#word-table");
-const rows = 4;
-const columns = 4;
-const totalBoxes = rows * columns;
-
-for (let i = 0; i < rows; i++) {
-    const row = document.createElement("tr");
-    for (let j = 0; j < columns; j++) {
-        const column = document.createElement("td");
-        column.innerHTML = '<input type="text" maxlength="1"/>';
-        row.appendChild(column);
+function initializeBoard() {
+    let board = document.getElementById("board");
+    for (let i = 0; i < 4; i++) {
+        let row = document.createElement("div")
+        row.className = "letter-row"
+        
+        for (let j = 0; j < 4; j++) {
+            let tile = document.createElement("div")
+            tile.className = "letter-tile"
+            row.appendChild(tile)
+        }
+        board.appendChild(row)
     }
-    wordTable.appendChild(row);
 }
-
-letterBoxes.forEach(function(letterBox) {
-    letterBox.addEventListener("keyup", function(event) {
-        // Capture the key events and populate the letter boxes
-    });
-});
