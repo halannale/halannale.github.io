@@ -149,9 +149,16 @@ function checkWord() {
             // yellow
             else {
                 colour = "rgb(255, 255, 167)";
-                for (let k = j; k < 4; k++) {
+                for (let k = j+1; k < 4; k++) {
                     if (letter === guess[k]) {
                         colour = "grey";
+                    }
+                }
+                if (j === 3) {
+                    for (let k = 0; k < 3; k++) {
+                        if (letter === guess[k]) {
+                            colour = "grey";
+                        }
                     }
                 }
             }
