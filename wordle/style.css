@@ -4,18 +4,18 @@ body {
   background-color: white;
   color: black;
 }
-ul {
+.nav-parent {
   display: flex;
   justify-content: center;
   flex-direction: row;
   align-items: center;
   border-bottom: solid rgb(235, 230, 230);
 }
-li:first-child {
+.nav:first-child {
   margin-right: auto;
   visibility: hidden;
 }
-li:last-child {
+.nav:last-child {
   margin-left: auto;
 }
 button:hover {
@@ -77,4 +77,13 @@ button {
 .dark {
   background-color: rgb(33, 33, 33);
   color: white;
+}
+.item-1 {
+  flex-basis: 20rem;
+  text-align: center;
+}
+.item-2 {
+  border-left: 1px solid rgb(196, 189, 189);
+  padding-left: 1em;
+  flex-basis: 40rem;
 }

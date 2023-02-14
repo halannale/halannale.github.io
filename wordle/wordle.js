@@ -49,23 +49,6 @@ startOverButton.addEventListener("click", function() {
     lettersFilled = 0;
 });
 
-// hint section
-function showHint() {
-    let hintDisplay = document.getElementById("bottom-display");
-    hintDisplay.innerHTML = "Hint: Taking a scenic walk";
-    // let message = "Hint:";
-    // message = message.concat(" ", currentWord.hint);
-    // hintDisplay.innerHTML = message;
-    hintDisplay.style.backgroundColor = "rgb(255, 243, 205)";
-    var x = document.getElementById("bottom-display");
-    if (x.style.display === "block") {
-        x.style.display = "none";
-    }
-    else {
-        x.style.display = "block";
-    }
-}
-
 function initializeBoard() {
     let board = document.getElementById("board");
     for (let i = 0; i < 4; i++) {
@@ -226,4 +209,76 @@ function checkWord() {
 function mode() {
     var element = document.body;
     element.classList.toggle("dark");
+}
+
+// hint section
+function showHint() {
+    let hintDisplay = document.getElementById("bottom-display");
+    hintDisplay.innerHTML = "Hint: Taking a scenic walk";
+    // let message = "Hint:";
+    // message = message.concat(" ", currentWord.hint);
+    // hintDisplay.innerHTML = message;
+    hintDisplay.style.backgroundColor = "rgb(255, 243, 205)";
+    var x = document.getElementById("bottom-display");
+    if (x.style.display === "block") {
+        x.style.display = "none";
+    }
+    else {
+        x.style.display = "block";
+    }
+}
+
+// instructions
+function instructions() {
+    var x = document.getElementById("board");
+    var y = document.getElementById("start-over");
+    if (x.style.display !== "none") {
+        x.style.display = "none";
+        y.style.display = "none";
+        const halfBoard = document.createElement("div");
+    const img = new Image(400,300);
+    img.src = "https://res.cloudinary.com/dceubf2vw/image/upload/v1676363529/photos/Screenshot_2023-02-14_013003_mn1pdr.png";
+    halfBoard.appendChild(img);
+    halfBoard.setAttribute("class", "item-1");
+    container.appendChild(halfBoard);
+
+    const instr = document.createElement("ul");
+    const messageOne = document.createTextNode("Start typing. The letters will appear in the boxes");
+    const one = document.createElement("li");
+    one.appendChild(messageOne);
+    instr.appendChild(one);
+    const messageTwo = document.createTextNode("Remove letters with Backspace");
+    const two = document.createElement("li");
+    two.appendChild(messageTwo);
+    instr.appendChild(two);
+    const messageThree = document.createTextNode("Hit Enter/Return to submit an answer");
+    const three = document.createElement("li");
+    three.appendChild(messageThree);
+    instr.appendChild(three);
+    const messageFour = document.createTextNode("Letters with green background are in the right spot");
+    const four = document.createElement("li");
+    four.appendChild(messageFour);
+    instr.appendChild(four);
+    const messageFive = document.createTextNode("Letters with yellow background exist in the word, but are in the wrong spots");
+    const five = document.createElement("li");
+    five.appendChild(messageFive);
+    instr.appendChild(five);
+    const messageSix = document.createTextNode("Letters with gray background do not exist in the word");
+    const six = document.createElement("li");
+    six.appendChild(messageSix);
+    instr.appendChild(six);
+    const messageSeven = document.createTextNode("If you need a hint, click the &#63; icon");
+    const seven = document.createElement("li");
+    seven.appendChild(messageSeven);
+    instr.appendChild(seven);
+    instr.setAttribute("class", "item-2");
+    let container = document.getElementById("container");
+    container.appendChild(instr);
+    }
+    else {
+        halfBoard.style.display = "none";
+        instr.style.display = "none";
+        x.style.display = "block";
+        y.style.display = "block";
+    }
 }
