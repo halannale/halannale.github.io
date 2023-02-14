@@ -52,9 +52,18 @@ startOverButton.addEventListener("click", function() {
 // hint section
 function showHint() {
     let hintDisplay = document.getElementById("bottom-display");
-    hintDisplay.innerHTML = "taking a scenic walk";
-    // hintDisplay.innerHTML = currentWord.hint;
+    hintDisplay.innerHTML = "Hint: Taking a scenic walk";
+    // let message = "Hint:";
+    // message = message.concat(" ", currentWord.hint);
+    // hintDisplay.innerHTML = message;
     hintDisplay.style.backgroundColor = "rgb(255, 243, 205)";
+    var x = document.getElementById("bottom-display");
+    if (x.style.display === "block") {
+        x.style.display = "none";
+    }
+    else {
+        x.style.display = "block";
+    }
 }
 
 function initializeBoard() {
@@ -190,6 +199,8 @@ function checkWord() {
         message = message.concat(" ", "correctly!");
         congrats.innerHTML = message;
         congrats.style.backgroundColor = "rgb(235, 230, 230)";
+        var x = document.getElementById("bottom-display");
+        x.style.display = "block";
         return;
     }
     else {
@@ -206,6 +217,8 @@ function checkWord() {
         lostDisplay.innerHTML = message;
         lostDisplay.style.backgroundColor = "red";
         lostDisplay.style.color = "white";
+        var x = document.getElementById("bottom-display");
+        x.style.display = "block";
     }
 }
 
