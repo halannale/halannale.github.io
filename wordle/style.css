@@ -62,6 +62,7 @@ button {
   background: rgb(143, 179, 143);
   border-radius: 5px;
   font-size: 18px;
+  margin: 30px;
 }
 .dark {
   background-color: rgb(33, 33, 33);

@@ -1,5 +1,6 @@
 const hintContainer = document.getElementById("word");
 const instrContainer = document.getElementById("instructions");
+const startOverButton = document.getElementById("start-over");
 
 let dictionary = [];
 let currentWord = "hike";
@@ -35,7 +36,6 @@ fetchDictionary();
 */
 initializeBoard();
 
-const startOverButton = document.getElementById("start-over");
 startOverButton.addEventListener("click", function() {
     randomIndex = Number.parseInt(Math.random() * dictionary.length);
     currentWord = dictionary[randomIndex];
@@ -47,6 +47,14 @@ startOverButton.addEventListener("click", function() {
     guessesLeft = 4;
     lettersFilled = 0;
 });
+
+// hint section
+const hintButton = document.getElementById("hint");
+hintButton.addEventListener("click", function() {
+    let hintDisplay = document.getElementById("hint-display");
+    hintDisplay.innerHTML = "taking a scenic walk";
+    hintDisplay.backgroundColor = "rgb(229, 205, 144)";
+})
 
 function initializeBoard() {
     let board = document.getElementById("board");
@@ -170,8 +178,11 @@ function checkWord() {
     }
 
     if (guess === currentWord) {
-        // Congratulations window idk how yet
-        window.alert("You guess right!")
+        let board = document.getElementById("board");
+        board.innerHTML = "";
+        const img = new Image(400,300);
+        img.src = "https://res.cloudinary.com/mkf/image/upload/v1675467141/ENSF-381/labs/congrats_fkscna.gif";
+        board.appendChild(img);
         return
     }
     else {
