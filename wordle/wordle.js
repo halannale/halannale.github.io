@@ -184,3 +184,9 @@ function checkWord() {
         window.alert("You've run out of guesses")
     }
 }
+
+// light/dark mode
+function mode() {
+    var element = document.body;
+    element.classList.toggle("dark");
+}
