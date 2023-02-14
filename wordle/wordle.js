@@ -184,7 +184,13 @@ function checkWord() {
         const img = new Image(400,300);
         img.src = "https://res.cloudinary.com/mkf/image/upload/v1675467141/ENSF-381/labs/congrats_fkscna.gif";
         board.appendChild(img);
-        return
+        let congrats = document.getElementById("bottom-display");
+        let message = "You guessed the word";
+        message = message.concat(" ", currentWord);
+        message = message.concat(" ", "correctly!");
+        congrats.innerHTML = message;
+        congrats.style.backgroundColor = "rgb(235, 230, 230)";
+        return;
     }
     else {
         guessesLeft -= 1;
