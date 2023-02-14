@@ -1,12 +1,8 @@
 const hintContainer = document.getElementById("word");
 const instrContainer = document.getElementById("instructions");
-const hintButton = document.getElementById("hint");
-const hintDisplay = document.getElementById("hint-display");
-const startOverButton = document.getElementById("start-over");
 
 let dictionary = [];
 let currentWord = "hike";
-let currentHint;
 let currentLetters = [];
 let randomIndex = 0;
 let guessesLeft = 4;
@@ -39,6 +35,7 @@ fetchDictionary();
 */
 initializeBoard();
 
+const startOverButton = document.getElementById("start-over");
 startOverButton.addEventListener("click", function() {
     randomIndex = Number.parseInt(Math.random() * dictionary.length);
     currentWord = dictionary[randomIndex];
@@ -49,10 +46,6 @@ startOverButton.addEventListener("click", function() {
     randomIndex = 0;
     guessesLeft = 4;
     lettersFilled = 0;
-});
-
-hintButton.addEventListener("click", function() {
-    hintDisplay.innerHTML = currentWord.hint;
 });
 
 function initializeBoard() {
@@ -131,7 +124,7 @@ function checkWord() {
         }
 
         for (let k = 0; k < 4; k++) {
-            if (currentLetters[j] === correct[k] && correct[k] !== "#") {
+            if (currentLetters[j] === correct[k]) {
                 position = k;
                 break;
             }
@@ -150,14 +143,18 @@ function checkWord() {
             else {
                 colour = "rgb(255, 255, 137)";
                 for (let k = j+1; k < 4; k++) {
-                    if (letter === guess[k]) {
+                    if (letter === guess[k] || (letter ===guess[k] && guess[k] === correct[k])) {
+                        colour = "grey";
+                    }
+                    if (letter === guess[k-2] && guess[k-2] === correct[k-2]) {
                         colour = "grey";
                     }
                 }
                 if (j === 3) {
                     for (let k = 0; k < 3; k++) {
-                        if (letter === guess[k]) {
+                        if (letter === guess[k] && guess[k] === correct[k]) {
                             colour = "grey";
+                            break;
                         }
                     }
                 }
