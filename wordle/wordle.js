@@ -148,7 +148,7 @@ function checkWord() {
             }
             // yellow
             else {
-                colour = "rgb(255, 255, 167)";
+                colour = "rgb(255, 255, 137)";
                 for (let k = j+1; k < 4; k++) {
                     if (letter === guess[k]) {
                         colour = "grey";
@@ -166,6 +166,10 @@ function checkWord() {
         }
         // shade box
         tile.style.backgroundColor = colour;
+        tile.style.color = "black";
+        if (colour === "grey") {
+            tile.style.color = "white";
+        }
     }
 
     if (guess === currentWord) {
