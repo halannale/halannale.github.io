@@ -5,7 +5,7 @@ const hintDisplay = document.getElementById("hint-display");
 const startOverButton = document.getElementById("start-over");
 
 let dictionary = [];
-let currentWord = "hell";
+let currentWord = "hike";
 let currentHint;
 let currentLetters = [];
 let randomIndex = 0;
@@ -47,7 +47,7 @@ startOverButton.addEventListener("click", function() {
     initializeBoard();
     currentLetters = [];
     randomIndex = 0;
-    guessLeft = 4;
+    guessesLeft = 4;
     lettersFilled = 0;
 });
 
@@ -115,34 +115,47 @@ function checkWord() {
         guess += i;
     }
     if (guess.length != 4) {
-        window.alert("first complete the word");
+        window.alert("You must complete the word first.");
         return;
     }
-    
+
     for (let j = 0; j < 4; j++) {
         let colour = "";
         let tile = row.children[j];
         let letter = currentLetters[j];
-        let position = 1;
-        for (let k = 0; k < currentWord.length; k++) {
-            if (currentWord[k] === currentLetters[k]) {
+        let position = -1;
+        let correct = "";
+
+        for (let l = 0; l < 4; l++) {
+            correct = correct.concat("", currentWord[l]);
+        }
+
+        for (let k = 0; k < 4; k++) {
+            if (currentLetters[j] === correct[k] && correct[k] !== "#") {
                 position = k;
                 break;
             }
         }
-        // Letter not in word
+        // Letter not in word: grey
         if (position === -1) {
-            colour="grey";
+            colour= "grey";
         }
         // Letter in word
         else {
-            if (letter === currentWord[i]) {
-                colour = "green"
+            // green
+            if (letter === correct[j]) {
+                colour = "rgb(136, 211, 136)";
             }
+            // yellow
             else {
-                colour = "yellow"
+                colour = "rgb(255, 255, 167)";
+                for (let k = j; k < 4; k++) {
+                    if (letter === guess[k]) {
+                        colour = "grey";
+                    }
+                }
             }
-            currentWord[position] = "#";
+            correct = correct.split(letter).join("#");
         }
         // shade box
         tile.style.backgroundColor = colour;
