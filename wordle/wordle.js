@@ -1,5 +1,3 @@
-const hintContainer = document.getElementById("word");
-const instrContainer = document.getElementById("instructions");
 const startOverButton = document.getElementById("start-over");
 
 let dictionary = [];
@@ -42,6 +40,9 @@ startOverButton.addEventListener("click", function() {
     let board = document.getElementById("board");
     board.innerHTML = "";
     initializeBoard();
+    let bottom = document.getElementById("bottom-display");
+    bottom.innerHTML = "";
+    bottom.style.backgroundColor = "transparent";
     currentLetters = [];
     randomIndex = 0;
     guessesLeft = 4;
@@ -49,12 +50,12 @@ startOverButton.addEventListener("click", function() {
 });
 
 // hint section
-const hintButton = document.getElementById("hint");
-hintButton.addEventListener("click", function() {
-    let hintDisplay = document.getElementById("hint-display");
+function showHint() {
+    let hintDisplay = document.getElementById("bottom-display");
     hintDisplay.innerHTML = "taking a scenic walk";
-    hintDisplay.backgroundColor = "rgb(229, 205, 144)";
-})
+    // hintDisplay.innerHTML = currentWord.hint;
+    hintDisplay.style.backgroundColor = "rgb(255, 243, 205)";
+}
 
 function initializeBoard() {
     let board = document.getElementById("board");
@@ -192,8 +193,13 @@ function checkWord() {
     }
 
     if (guessesLeft === 0) {
-        // do the losing window idk how yet
-        window.alert("You've run out of guesses")
+        let lostDisplay = document.getElementById("bottom-display");
+        let message = "You missed the word";
+        message = message.concat(" ", currentWord);
+        message = message.concat(" ", "and lost!");
+        lostDisplay.innerHTML = message;
+        lostDisplay.style.backgroundColor = "red";
+        lostDisplay.style.color = "white";
     }
 }
 

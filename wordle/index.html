@@ -17,15 +17,17 @@
     <li><h1>Wordle</h1></li>
     <li>
       <button onclick="mode()">&#9681;</button>
-      <button id="hint">&#63;</button>
+      <button onclick="showHint()">&#63;</button>
       <button id="instructions">&#9432;</button>
     </li>
   </div>
   <br>
+  <div class="container">
   <div id="board"></div>
   <br>
   <button id="start-over">Start Over</button>
-  <div id="hint-display">Taking a scenic walk</div>
+  <div id="bottom-display"></div>
+  </div>
   <script src="./wordle.js"></script>
 </body>
 </html>
