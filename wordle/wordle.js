@@ -1,13 +1,13 @@
 const startOverButton = document.getElementById("start-over");
 
 let dictionary = [];
-let currentWord = "hike";
+let currentWord;
 let currentLetters = [];
 let randomIndex = 0;
 let guessesLeft = 4;
 let lettersFilled = 0;
 
-/*
+
 async function fetchDictionary() {
     startOverButton.disabled = true;
     startOverButton.innerHTML = "Loading..."
@@ -31,7 +31,7 @@ async function fetchDictionary() {
 }
 
 fetchDictionary();
-*/
+
 initializeBoard();
 
 startOverButton.addEventListener("click", function() {
@@ -42,7 +42,8 @@ startOverButton.addEventListener("click", function() {
     initializeBoard();
     let bottom = document.getElementById("bottom-display");
     bottom.innerHTML = "";
-    bottom.style.backgroundColor = "transparent";
+    bottom.style.display = "none";
+    bottom.style.color = "black";
     currentLetters = [];
     randomIndex = 0;
     guessesLeft = 4;
@@ -121,7 +122,7 @@ function checkWord() {
         let correct = "";
 
         for (let l = 0; l < 4; l++) {
-            correct = correct.concat("", currentWord[l]);
+            correct = correct.concat("", currentWord.word[l].toLowerCase());
         }
 
         for (let k = 0; k < 4; k++) {
@@ -170,7 +171,7 @@ function checkWord() {
         }
     }
 
-    if (guess === currentWord) {
+    if (guess === currentWord.word.toLowerCase()) {
         let board = document.getElementById("board");
         board.innerHTML = "";
         const img = new Image(400,300);
@@ -178,7 +179,7 @@ function checkWord() {
         board.appendChild(img);
         let congrats = document.getElementById("bottom-display");
         let message = "You guessed the word";
-        message = message.concat(" ", currentWord);
+        message = message.concat(" ", currentWord.word);
         message = message.concat(" ", "correctly!");
         congrats.innerHTML = message;
         congrats.style.backgroundColor = "rgb(235, 230, 230)";
@@ -195,7 +196,7 @@ function checkWord() {
     if (guessesLeft === 0) {
         let lostDisplay = document.getElementById("bottom-display");
         let message = "You missed the word";
-        message = message.concat(" ", currentWord);
+        message = message.concat(" ", currentWord.word);
         message = message.concat(" ", "and lost!");
         lostDisplay.innerHTML = message;
         lostDisplay.style.backgroundColor = "red";
@@ -214,10 +215,9 @@ function mode() {
 // hint section
 function showHint() {
     let hintDisplay = document.getElementById("bottom-display");
-    hintDisplay.innerHTML = "Hint: Taking a scenic walk";
-    // let message = "Hint:";
-    // message = message.concat(" ", currentWord.hint);
-    // hintDisplay.innerHTML = message;
+    let message = "Hint:";
+    message = message.concat(" ", currentWord.hint);
+    hintDisplay.innerHTML = message;
     hintDisplay.style.backgroundColor = "rgb(255, 243, 205)";
     var x = document.getElementById("bottom-display");
     if (x.style.display === "block") {
@@ -235,50 +235,54 @@ function instructions() {
     if (x.style.display !== "none") {
         x.style.display = "none";
         y.style.display = "none";
-        const halfBoard = document.createElement("div");
-    const img = new Image(400,300);
-    img.src = "https://res.cloudinary.com/dceubf2vw/image/upload/v1676363529/photos/Screenshot_2023-02-14_013003_mn1pdr.png";
-    halfBoard.appendChild(img);
-    halfBoard.setAttribute("class", "item-1");
-    container.appendChild(halfBoard);
+        let container = document.getElementsByClassName("container");
+        container.style.flexDirection = "row";
+        let halfBoard = document.createElement("div");
+        let img = new Image(200,200);
+        img.src = "https://res.cloudinary.com/dceubf2vw/image/upload/v1676363529/photos/Screenshot_2023-02-14_013003_mn1pdr.png";
+        halfBoard.appendChild(img);
+        // halfBoard.setAttribute("class", "item-1");
+        container.appendChild(img);
 
-    const instr = document.createElement("ul");
-    const messageOne = document.createTextNode("Start typing. The letters will appear in the boxes");
-    const one = document.createElement("li");
-    one.appendChild(messageOne);
-    instr.appendChild(one);
-    const messageTwo = document.createTextNode("Remove letters with Backspace");
-    const two = document.createElement("li");
-    two.appendChild(messageTwo);
-    instr.appendChild(two);
-    const messageThree = document.createTextNode("Hit Enter/Return to submit an answer");
-    const three = document.createElement("li");
-    three.appendChild(messageThree);
-    instr.appendChild(three);
-    const messageFour = document.createTextNode("Letters with green background are in the right spot");
-    const four = document.createElement("li");
-    four.appendChild(messageFour);
-    instr.appendChild(four);
-    const messageFive = document.createTextNode("Letters with yellow background exist in the word, but are in the wrong spots");
-    const five = document.createElement("li");
-    five.appendChild(messageFive);
-    instr.appendChild(five);
-    const messageSix = document.createTextNode("Letters with gray background do not exist in the word");
-    const six = document.createElement("li");
-    six.appendChild(messageSix);
-    instr.appendChild(six);
-    const messageSeven = document.createTextNode("If you need a hint, click the &#63; icon");
-    const seven = document.createElement("li");
-    seven.appendChild(messageSeven);
-    instr.appendChild(seven);
-    instr.setAttribute("class", "item-2");
-    let container = document.getElementById("container");
-    container.appendChild(instr);
+        /*
+        const instr = document.createElement("ul");
+        const messageOne = document.createTextNode("Start typing. The letters will appear in the boxes");
+        const one = document.createElement("li");
+        one.appendChild(messageOne);
+        instr.appendChild(one);
+        const messageTwo = document.createTextNode("Remove letters with Backspace");
+        const two = document.createElement("li");
+        two.appendChild(messageTwo);
+        instr.appendChild(two);
+        const messageThree = document.createTextNode("Hit Enter/Return to submit an answer");
+        const three = document.createElement("li");
+        three.appendChild(messageThree);
+        instr.appendChild(three);
+        const messageFour = document.createTextNode("Letters with green background are in the right spot");
+        const four = document.createElement("li");
+        four.appendChild(messageFour);
+        instr.appendChild(four);
+        const messageFive = document.createTextNode("Letters with yellow background exist in the word, but are in the wrong spots");
+        const five = document.createElement("li");
+        five.appendChild(messageFive);
+        instr.appendChild(five);
+        const messageSix = document.createTextNode("Letters with gray background do not exist in the word");
+        const six = document.createElement("li");
+        six.appendChild(messageSix);
+        instr.appendChild(six);
+        const messageSeven = document.createTextNode("If you need a hint, click the &#63; icon");
+        const seven = document.createElement("li");
+        seven.appendChild(messageSeven);
+        instr.appendChild(seven);
+        instr.setAttribute("class", "item-2");
+        container.appendChild(instr);
+        */
     }
     else {
-        halfBoard.style.display = "none";
-        instr.style.display = "none";
+        // halfBoard.style.display = "none";
+        // instr.style.display = "none";
         x.style.display = "block";
         y.style.display = "block";
+        container.style.flexDirection = "column";
     }
 }
