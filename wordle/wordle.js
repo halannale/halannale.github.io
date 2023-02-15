@@ -66,6 +66,7 @@ function initializeBoard() {
 
 document.addEventListener("keyup", (e) => {
     let pressedKey = String(e.key)
+    if (/[a-zA-Z]/.test(pressedKey)) {
     switch (pressedKey) {
         case "Backspace":
             if (lettersFilled !== 0) {
@@ -77,6 +78,7 @@ document.addEventListener("keyup", (e) => {
             break;
         default:
             insertL(pressedKey);
+    }
     }
 });
 
