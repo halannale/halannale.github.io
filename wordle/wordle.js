@@ -35,6 +35,9 @@ fetchDictionary();
 initializeBoard();
 
 startOverButton.addEventListener("click", function() {
+    currentLetters = [];
+    guessesLeft = 4;
+    lettersFilled = 0;
     randomIndex = Number.parseInt(Math.random() * dictionary.length);
     currentWord = dictionary[randomIndex];
     let board = document.getElementById("board");
@@ -44,10 +47,6 @@ startOverButton.addEventListener("click", function() {
     bottom.innerHTML = "";
     bottom.style.display = "none";
     bottom.style.color = "black";
-    currentLetters = [];
-    randomIndex = 0;
-    guessesLeft = 4;
-    lettersFilled = 0;
 });
 
 function initializeBoard() {
@@ -66,19 +65,20 @@ function initializeBoard() {
 
 document.addEventListener("keyup", (e) => {
     let pressedKey = String(e.key)
-    if (/[a-zA-Z]/.test(pressedKey)) {
-    switch (pressedKey) {
-        case "Backspace":
-            if (lettersFilled !== 0) {
-                deleteL();
-            }
-            break;
-        case "Enter":
-            checkWord();
-            break;
-        default:
-            insertL(pressedKey);
+    if (pressedKey=== "Backspace" && lettersFilled !== 0) {
+        deleteL();
+        return;
     }
+    if (pressedKey === "Enter") {
+        checkWord();
+        return;
+    }
+    let found = pressedKey.match(/[a-z]/gi)
+    if (!found || found.length >1) {
+        return;
+    }
+    else {
+        insertL(pressedKey);
     }
 });
 
