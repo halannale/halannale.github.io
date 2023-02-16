@@ -293,10 +293,13 @@ function instructions() {
         const six = document.createElement("li");
         six.appendChild(messageSix);
         instr.appendChild(six);
-        const messageSeven = document.createTextNode("If you need a hint, click the &#63; icon");
-        const seven = document.createElement("li");
-        seven.appendChild(messageSeven);
-        instr.appendChild(seven);
+        const messageSeven = document.createElement("li");
+        const hintIcon = document.createElement("span");
+        hintIcon.innerHTML = "&#63";
+        messageSeven.appendChild(document.createTextNode("If you need a hint, click the "));
+        messageSeven.appendChild(hintIcon);
+        messageSeven.appendChild(document.createTextNode(" icon"));
+        instr.appendChild(messageSeven);
         instr.setAttribute("class", "item-2");
         container.appendChild(instr);
         brd.style.display = "block";
