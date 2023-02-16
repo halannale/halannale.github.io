@@ -8,25 +8,25 @@
   </head>
   <body id="update" style="text-align: center">
   <div>
-  <ul class="nav-parent">
-    <li class="nav">
+  <div class="nav-parent">
+    <div class="nav">
       <button onclick="mode()">&#9681;</button>
       <button id="hint">&#63;</button>
       <button id="instructions">&#9432;</button>
-    </li>
-    <li class="nav"><h1>Wordle</h1></li>
-    <li class="nav">
+    </div>
+    <div class="nav"><h1>Wordle</h1></div>
+    <div class="nav">
       <button onclick="mode()">&#9681;</button>
       <button onclick="showHint()">&#63;</button>
       <button onclick="instructions()">&#9432;</button>
-    </li>
+    </div>
+  </div>
   </div>
   <br>
   <div class="container">
   <div id="board"></div>
   <br>
   <button id="start-over">Start Over</button>
-  <div class="current-press"></div>
   <div id="bottom-display"></div>
   </div>
   <script src="./wordle.js"></script>

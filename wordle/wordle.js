@@ -234,19 +234,17 @@ function showHint() {
 function instructions() {
     var x = document.getElementById("board");
     var y = document.getElementById("start-over");
-    if (x.style.display !== "none") {
+    
+    if (y.style.display !== "none") {
         x.style.display = "none";
         y.style.display = "none";
-        let container = document.getElementsByClassName("container");
-        container.style.flexDirection = "row";
-        let halfBoard = document.createElement("div");
-        let img = new Image(200,200);
+        let container = document.querySelector(".container");
+        const brd = document.createElement("div");
+        var img = new Image(200, 200);
         img.src = "https://res.cloudinary.com/dceubf2vw/image/upload/v1676363529/photos/Screenshot_2023-02-14_013003_mn1pdr.png";
-        halfBoard.appendChild(img);
-        // halfBoard.setAttribute("class", "item-1");
-        container.appendChild(img);
+        brd.appendChild(img);
+        container.appendChild(brd);
 
-        /*
         const instr = document.createElement("ul");
         const messageOne = document.createTextNode("Start typing. The letters will appear in the boxes");
         const one = document.createElement("li");
@@ -276,15 +274,16 @@ function instructions() {
         const seven = document.createElement("li");
         seven.appendChild(messageSeven);
         instr.appendChild(seven);
-        instr.setAttribute("class", "item-2");
         container.appendChild(instr);
-        */
+
+        brd.style.display = "flex";
+        instr.style.display = "flex";
+        container.style.flexDirection = "row";
     }
     else {
-        // halfBoard.style.display = "none";
-        // instr.style.display = "none";
         x.style.display = "block";
         y.style.display = "block";
-        container.style.flexDirection = "column";
+        brd.style.display = "none";
+        instr.style.display = "none";
     }
 }

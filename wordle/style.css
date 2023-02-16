@@ -21,9 +21,6 @@ body {
 button:hover {
   background: rgb(203, 198, 198)
 }
-li {
-  display: flex;
-}
 button {
   border: none;
   background:none;
@@ -79,11 +76,10 @@ button {
   color: white;
 }
 .item-1 {
-  flex-basis: 20rem;
+
   text-align: center;
 }
 .item-2 {
   border-left: 1px solid rgb(196, 189, 189);
   padding-left: 1em;
-  flex-basis: 40rem;
 }
