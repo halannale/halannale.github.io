@@ -234,18 +234,33 @@ function showHint() {
 function instructions() {
     var x = document.getElementById("board");
     var y = document.getElementById("start-over");
-    
-    if (y.style.display !== "none") {
+    var brd, instr;
+    let container = document.querySelector(".container");
+    if (y.classList.contains("init")) {
+        y.classList.remove("init");
         x.style.display = "none";
         y.style.display = "none";
-        let container = document.querySelector(".container");
-        const brd = document.createElement("div");
-        var img = new Image(200, 200);
-        img.src = "https://res.cloudinary.com/dceubf2vw/image/upload/v1676363529/photos/Screenshot_2023-02-14_013003_mn1pdr.png";
-        brd.appendChild(img);
+        brd = document.createElement("div");
+        for (let i = 0; i < 4; i++) {
+            let row = document.createElement("div");
+            row.className = "letter-row";
+            for (let j = 0; j < 4; j++) {
+                let tile = document.createElement("input-type");
+                tile.className = "letter-tile";
+                row.appendChild(tile);
+            }
+            brd.appendChild(row)
+        }
+        let button = document.createElement("div");
+        button.setAttribute("id", "start-over");
+        brd.appendChild(button);
+        brd.setAttribute("class", "item-1");
         container.appendChild(brd);
 
-        const instr = document.createElement("ul");
+        instr = document.createElement("ul");
+        const header = document.createElement("h2");
+        header.innerHTML = "How To Play";
+        instr.appendChild(header);
         const messageOne = document.createTextNode("Start typing. The letters will appear in the boxes");
         const one = document.createElement("li");
         one.appendChild(messageOne);
@@ -274,16 +289,29 @@ function instructions() {
         const seven = document.createElement("li");
         seven.appendChild(messageSeven);
         instr.appendChild(seven);
+        instr.setAttribute("class", "item-2");
         container.appendChild(instr);
-
-        brd.style.display = "flex";
-        instr.style.display = "flex";
+        brd.style.display = "block";
+        instr.style.display = "block";
+        container.style.flexDirection = "row";
+        return;
+    }
+    if (y.style.display !== "none") {
+        let item1 = document.querySelector(".item-1");
+        let item2 = document.querySelector(".item-2");
+        x.style.display = "none";
+        y.style.display = "none";
+        item1.style.display = "block";
+        item2.style.display = "block";
         container.style.flexDirection = "row";
     }
     else {
+        let item1 = document.querySelector(".item-1");
+        let item2 = document.querySelector(".item-2");
+        item1.style.display = "none";
+        item2.style.display = "none";
         x.style.display = "block";
         y.style.display = "block";
-        brd.style.display = "none";
-        instr.style.display = "none";
+        container.style.flexDirection = "column";
     }
 }

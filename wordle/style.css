@@ -31,6 +31,7 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   min-height: 75vh;
 }
 #board {
@@ -76,10 +77,12 @@ button {
   color: white;
 }
 .item-1 {
-
   text-align: center;
+  padding-right: 3em;
 }
 .item-2 {
   border-left: 1px solid rgb(196, 189, 189);
-  padding-left: 1em;
+  text-align: left;
+  padding-left: 3em;
+  line-height: 24pt;
 }
