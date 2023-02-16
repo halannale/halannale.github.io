@@ -146,6 +146,7 @@ function checkWord() {
             // yellow
             else {
                 colour = "rgb(255, 255, 137)";
+                // check for duplicate words
                 for (let k = j+1; k < 4; k++) {
                     if (letter === guess[k] || (letter ===guess[k] && guess[k] === correct[k])) {
                         colour = "grey";
@@ -221,6 +222,7 @@ function showHint() {
     message = message.concat(" ", currentWord.hint);
     hintDisplay.innerHTML = message;
     hintDisplay.style.backgroundColor = "rgb(255, 243, 205)";
+    hintDisplay.style.color = "black";
     var x = document.getElementById("bottom-display");
     if (x.style.display === "block") {
         x.style.display = "none";
@@ -240,6 +242,8 @@ function instructions() {
         y.classList.remove("init");
         x.style.display = "none";
         y.style.display = "none";
+       
+       // initialize brd
         brd = document.createElement("div");
         for (let i = 0; i < 4; i++) {
             let row = document.createElement("div");
@@ -251,12 +255,16 @@ function instructions() {
             }
             brd.appendChild(row)
         }
-        let button = document.createElement("div");
+        //button
+
+        let button = document.createElement("button");
         button.setAttribute("id", "start-over");
+        button.innerHTML = "Start Over";
         brd.appendChild(button);
         brd.setAttribute("class", "item-1");
         container.appendChild(brd);
 
+        // list of instructions
         instr = document.createElement("ul");
         const header = document.createElement("h2");
         header.innerHTML = "How To Play";
