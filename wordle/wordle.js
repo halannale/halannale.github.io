@@ -29,9 +29,7 @@ async function fetchDictionary() {
   randomIndex = Number.parseInt(Math.random() * dictionary.length);
   currentWord = dictionary[randomIndex];
 }
-
 fetchDictionary();
-
 initializeBoard();
 
 startOverButton.addEventListener("click", function() {
@@ -104,6 +102,20 @@ function insertL(pressedKey) {
     lettersFilled += 1;
 }
 
+function count(str, find) {
+    return(str.split(find)).length -1;
+}
+
+function occurrence(str, val) {
+    var count = 0;
+    for (var i = 0; i < str.length; i++) {
+        if (str[i] === val) {
+            count++;
+        }
+    }
+    return count;
+}
+
 function checkWord() {
     let row = document.getElementsByClassName("letter-row")[4-guessesLeft];
     let guess = "";
@@ -116,56 +128,41 @@ function checkWord() {
         return;
     }
 
+    let guessArray = [];
+
     for (let j = 0; j < 4; j++) {
-        let colour = "";
+        let colour = "grey";
         let tile = row.children[j];
         let letter = currentLetters[j];
-        let position = -1;
-        let correct = "";
-
-        for (let l = 0; l < 4; l++) {
-            correct = correct.concat("", currentWord.word[l].toLowerCase());
-        }
-
-        for (let k = 0; k < 4; k++) {
-            if (currentLetters[j] === correct[k]) {
-                position = k;
-                break;
-            }
-        }
-        // Letter not in word: grey
-        if (position === -1) {
-            colour= "grey";
-        }
-        // Letter in word
-        else {
-            // green
-            if (letter === correct[j]) {
+        guessArray.push(letter);
+        
+        if (currentWord.word.toLowerCase().includes(letter)) {
+            if (currentWord.word[j].toLowerCase() === letter) {
                 colour = "rgb(136, 211, 136)";
-            }
-            // yellow
-            else {
-                colour = "rgb(255, 255, 137)";
-                // check for duplicate words
-                for (let k = j+1; k < 4; k++) {
-                    if (letter === guess[k] || (letter ===guess[k] && guess[k] === correct[k])) {
-                        colour = "grey";
-                    }
-                    if (letter === guess[k-2] && guess[k-2] === correct[k-2]) {
-                        colour = "grey";
-                    }
-                }
-                if (j === 3) {
-                    for (let k = 0; k < 3; k++) {
-                        if (letter === guess[k] && guess[k] === correct[k]) {
-                            colour = "grey";
-                            break;
+                if(count(guess, letter) > count(currentWord.word.toLowerCase(), letter)) {
+                    for(let k=0; k < 4; k++) {
+                        if (guess[k] === letter && row.children[k].style.backgroundColor === "rgb(255, 255, 137)") {
+                            row.children[k].style.backgroundColor = "grey";
+                            row.children[k].style.color = "white";
+                            let index = guessArray.indexOf(letter);
+                            if (index !== -1) {
+                                guessArray.splice(index,1);
+                            }
                         }
                     }
                 }
             }
-            correct = correct.split(letter).join("#");
+            else {
+                if(occurrence(guessArray, letter) <= count(currentWord.word.toLowerCase(), letter)) {
+                    colour = "rgb(255, 255, 137)";
+                }
+                else {
+                    colour = "grey";
+                }
+            }
         }
+            // green colour = "rgb(136, 211, 136)";
+            // yellow colour = "rgb(255, 255, 137)";
         // shade box
         tile.style.backgroundColor = colour;
         tile.style.color = "black";
