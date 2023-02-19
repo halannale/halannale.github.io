@@ -1,4 +1,5 @@
 const startOverButton = document.getElementById("start-over");
+let keyDisplay = document.getElementById("key-display");
 
 let dictionary = [];
 let currentWord;
@@ -64,10 +65,30 @@ function initializeBoard() {
 document.addEventListener("keyup", (e) => {
     let pressedKey = String(e.key)
     if (pressedKey=== "Backspace" && lettersFilled !== 0) {
+        keyDisplay.style.visibility = "visible";
+        keyDisplay.innerHTML = "&#9003;";
+        keyDisplay.style.paddingLeft = "20px";
+        keyDisplay.style.paddingRight = "20px";
+        keyDisplay.style.paddingTop = "21px";
+        keyDisplay.style.paddingBottom = "21px";
+        keyDisplay.style.backgroundColor = "rgb(54, 54, 54)";
+        setTimeout(() => {
+            keyDisplay.style.visibility = "hidden";
+        }, 3000);
         deleteL();
         return;
     }
     if (pressedKey === "Enter") {
+        keyDisplay.style.visibility = "visible";
+        keyDisplay.innerHTML = "&#9166;";
+        keyDisplay.style.paddingLeft = "28px";
+        keyDisplay.style.paddingRight = "28px";
+        keyDisplay.style.paddingTop = "22px";
+        keyDisplay.style.paddingBottom = "22px";
+        keyDisplay.style.backgroundColor = "rgb(54, 54, 54)";
+        setTimeout(() => {
+            keyDisplay.style.visibility = "hidden";
+        }, 3000);
         checkWord();
         return;
     }
@@ -76,6 +97,16 @@ document.addEventListener("keyup", (e) => {
         return;
     }
     else {
+        keyDisplay.style.visibility = "visible";
+        keyDisplay.innerHTML = pressedKey.toUpperCase();
+        keyDisplay.style.backgroundColor = "rgb(54, 54, 54)";
+        keyDisplay.style.paddingLeft = "30px";
+        keyDisplay.style.paddingRight = "30px";
+        keyDisplay.style.paddingTop = "25px";
+        keyDisplay.style.paddingBottom = "25px";
+        setTimeout(() => {
+            keyDisplay.style.visibility = "hidden";
+        }, 3000);
         insertL(pressedKey);
     }
 });
@@ -239,6 +270,7 @@ function instructions() {
         y.classList.remove("init");
         x.style.display = "none";
         y.style.display = "none";
+        keyDisplay.style.display = "none";
        
        // initialize brd
         brd = document.createElement("div");
@@ -320,6 +352,7 @@ function instructions() {
         item2.style.display = "none";
         x.style.display = "block";
         y.style.display = "block";
+        keyDisplay.style.display = "block";
         container.style.flexDirection = "column";
     }
 }

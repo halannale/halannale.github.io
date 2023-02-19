@@ -72,6 +72,11 @@ button {
   font-size: 18px;
   margin: 30px;
 }
+#key-display {
+  border-radius: 15px;
+  font-size: 35px;
+  color: rgb(205, 201, 201);
+}
 .dark {
   background-color: rgb(33, 33, 33);
   color: white;
